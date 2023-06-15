@@ -90,12 +90,12 @@ const SellNft: NextPage = () => {
         return <div>You should connect wallet first.</div>
     }
 
-    const currentNetworkMapping: any =
-        abis[parseInt(chainId).toString() as keyof typeof abis]
-    if (!currentNetworkMapping) {
+    if (parseInt(chainId).toString() != "11155111") {
         return <div>Currently, only sepolia testnet is supported</div>
     }
 
+    const currentNetworkMapping: any =
+        abis[parseInt(chainId).toString() as keyof typeof abis]
     nftMarketplace = currentNetworkMapping[0].contracts.NFTMarketplace
 
     const handleWithdraw = async () => {

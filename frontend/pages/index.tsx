@@ -22,9 +22,6 @@ const Home: NextPage = () => {
     const { chainId: chainIdHex, account } = useMoralis()
     const chainId = chainIdHex ? parseInt(chainIdHex).toString() : "11155111"
 
-    const networkConfig: any = abis[chainId as keyof typeof abis]
-    const marketplaceAddress = networkConfig[0].contracts.NFTMarketplace.address
-
     const {
         loading,
         error: subgraphQueryError,
@@ -35,11 +32,12 @@ const Home: NextPage = () => {
         return <div>You should connect wallet first.</div>
     }
 
-    const currentNetworkMapping: any =
-        abis[parseInt(chainId).toString() as keyof typeof abis]
-    if (!currentNetworkMapping) {
+    if (parseInt(chainId).toString() != "11155111") {
         return <div>Currently, only sepolia testnet is supported</div>
     }
+
+    const networkConfig: any = abis[chainId as keyof typeof abis]
+    const marketplaceAddress = networkConfig[0].contracts.NFTMarketplace.address
 
     return (
         <div className="container mx-auto">
