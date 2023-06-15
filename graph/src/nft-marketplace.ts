@@ -5,7 +5,7 @@ import {
     ItemListed as ItemListedEvent,
 } from "../generated/NFTMarketplace/NFTMarketplace"
 import { ActiveItem, ItemBought, ItemCanceled, ItemListed } from "../generated/schema"
-import { store } from "@graphprotocol/graph-ts"
+import { store, log } from "@graphprotocol/graph-ts"
 
 export function handleItemBought(event: ItemBoughtEvent): void {
     let entity = new ItemBought(event.transaction.hash.concatI32(event.logIndex.toI32()))
@@ -19,6 +19,7 @@ export function handleItemBought(event: ItemBoughtEvent): void {
     entity.save()
 
     const activeItemId = id(event.params.nftAddress, event.params.tokenId)
+    log.info("store.remove ActiveItem: {}", [activeItemId])
     store.remove("ActiveItem", activeItemId)
 }
 
@@ -33,6 +34,7 @@ export function handleItemCanceled(event: ItemCanceledEvent): void {
     entity.save()
 
     const activeItemId = id(event.params.nftAddress, event.params.tokenId)
+    log.info("store.remove ActiveItem: {}", [activeItemId])
     store.remove("ActiveItem", activeItemId)
 }
 
@@ -47,7 +49,8 @@ export function handleItemListed(event: ItemListedEvent): void {
     entity.transactionHash = event.transaction.hash
     entity.save()
 
-    let activeItem = new ActiveItem(id(event.params.nftAddress, event.params.tokenId))
+    const activeItemId = id(event.params.nftAddress, event.params.tokenId)
+    let activeItem = new ActiveItem(activeItemId)
     activeItem.seller = event.params.seller
     activeItem.nftAddress = event.params.nftAddress
     activeItem.tokenId = event.params.tokenId
@@ -56,6 +59,7 @@ export function handleItemListed(event: ItemListedEvent): void {
     activeItem.blockTimestamp = event.block.timestamp
     activeItem.transactionHash = event.transaction.hash
     activeItem.save()
+    log.info("ActiveItem.save(): {}", [activeItemId])
 }
 
 function id(nftAddress: Address, tokenId: BigInt): string {

@@ -7,8 +7,8 @@ dataSources:
       network: sepolia
       source:
           abi: NFTMarketplace
-          address: "0x92BE25fd4a61806be433B10BD38989506283D3CA"
-          startBlock: 3661940
+          address: "0x391c9Fd93684B72FdDa5d9C1C46eb74b1B4996d5"
+          startBlock: 3677276
       mapping:
           kind: ethereum/events
           apiVersion: 0.0.6

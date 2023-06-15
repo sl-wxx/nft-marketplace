@@ -1,4 +1,4 @@
-type ActiveItem @entity(immutable: true) {
+type ActiveItem @entity(immutable: false) {
     id: ID!
     seller: Bytes!
     nftAddress: Bytes!

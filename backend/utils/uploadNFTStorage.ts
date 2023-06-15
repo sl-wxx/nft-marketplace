@@ -22,7 +22,7 @@ async function main(): Promise<string> {
         const metadata = {
             name: name,
             description: name,
-            image: `${imagesUploadRsp.cid}/${filename}`,
+            image: `ipfs://${imagesUploadRsp.cid}/${filename}`,
         }
         fs.writeFileSync(
             `${metadataDir}${idx}`,

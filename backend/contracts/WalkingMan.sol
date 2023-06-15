@@ -11,13 +11,13 @@ import {Counters} from "@openzeppelin/contracts/utils/Counters.sol";
 contract WalkingMan is ERC721, ERC721Enumerable, Pausable, Ownable {
     using Counters for Counters.Counter;
 
-    uint256 public constant MINT_FEE = 0.1 ether;
+    uint256 public constant MINT_FEE = 0.001 ether;
 
     // total count (includes those that haven't mint)
     uint256 public constant TOTAL_COUNT = 3;
 
     string private constant _BASE_URI =
-        "ipfs://bafybeihlhjurflhylqj7p6wqoujz4rgnvlsrj5jnhv3ultkg5zd7pwcmry/";
+        "ipfs://bafybeigftzi44w4ldksewy7ctxym5jdreaona72kricbdoszcrmxkytogm/";
 
     Counters.Counter private s_tokenIdCounter;
 
