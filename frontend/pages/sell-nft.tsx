@@ -93,8 +93,7 @@ const SellNft: NextPage = () => {
     const currentNetworkMapping: any =
         abis[parseInt(chainId).toString() as keyof typeof abis]
     if (!currentNetworkMapping) {
-        const error = `No entry in networkMapping.json matching the current chain ID of ${chainId}`
-        return <div>Error: {error}</div>
+        return <div>Currently, only sepolia testnet is supported</div>
     }
 
     nftMarketplace = currentNetworkMapping[0].contracts.NFTMarketplace

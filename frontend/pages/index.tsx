@@ -19,7 +19,7 @@ interface nftInterface {
 const Home: NextPage = () => {
     // TODO: Implement paging in UI
     // const [page, setPage] = useState(1)
-    const { chainId: chainIdHex } = useMoralis()
+    const { chainId: chainIdHex, account } = useMoralis()
     const chainId = chainIdHex ? parseInt(chainIdHex).toString() : "11155111"
 
     const networkConfig: any = abis[chainId as keyof typeof abis]
@@ -30,6 +30,16 @@ const Home: NextPage = () => {
         error: subgraphQueryError,
         data: listedNfts,
     } = useQuery(GET_ACTIVE_ITEMS)
+
+    if (!account || !chainId) {
+        return <div>You should connect wallet first.</div>
+    }
+
+    const currentNetworkMapping: any =
+        abis[parseInt(chainId).toString() as keyof typeof abis]
+    if (!currentNetworkMapping) {
+        return <div>Currently, only sepolia testnet is supported</div>
+    }
 
     return (
         <div className="container mx-auto">
